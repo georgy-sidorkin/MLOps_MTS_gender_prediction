@@ -1,0 +1,73 @@
+preprocessing:
+  raw_data_extension: .parquet
+  change_col_types:
+    region_name: category        
+    city_name: category        
+    cpe_manufacturer_name: category
+    cpe_model_name: category
+    url_host: category
+    cpe_type_cd: category
+    cpe_model_os_type: category
+    date: datetime64[ns]
+    price: float32
+    part_of_day: category
+    request_cnt: int8
+    user_id: int32
+  columns_fill_na:
+    price: -999
+  replace_values:
+    cpe_model_os_type:
+      Apple iOS: iOS
+    cpe_manufacturer_name:
+      Huawei Device Company Limited: Huawei
+      Motorola Mobility LLC, a Lenovo Company: Motorola
+      Sony Mobile Communications Inc.: Sony
+      Highscreen Limited: Highscreen
+      Realme Chongqing Mobile Telecommunications Corp Ltd: Realme
+      Realme Mobile Telecommunications (Shenzhen) Co Ltd: Realme
+  columns_save_min_max: ['region_cnt', 'city_cnt', 'url_host_cnt', 'part_of_day_morning', 'part_of_day_day', 'part_of_day_evening', 'part_of_day_night', 'act_days', 'request_cnt', 'period_days', 'price']
+  columns_save_unique: ['cpe_type_cd', 'cpe_manufacturer_name', 'cpe_model_os_type']
+  raw_data_path: ../data/raw/
+  agg_data_path: ../data/processed/agg_data.csv
+  unique_values_path: ../data/processed/unique_values.json
+  submit_path: ../data/raw/submit.pqt
+
+train:
+  target: is_male
+  train_test_size: 0.2
+  train_val_size: 0.16
+  random_state: 10
+  k_folds: 5
+  columns_to_drop: user_id
+  target_type:
+    is_male: int8
+  agg_columns_type: 
+    user_id: int32
+    part_of_day_day: int16,
+    part_of_day_evening: int16
+    part_of_day_morning: int16
+    part_of_day_night: int16
+    sum_visits: int16
+    day_pct: float32
+    evening_pct: float32
+    morning_pct: float32
+    night_pct: float32
+    act_days: int16
+    request_cnt: int32
+    avg_req_per_day: float32
+    period_days: int16
+    act_days_pct: float32
+    cpe_type_cd: category
+    cpe_model_os_type: category
+    cpe_manufacturer_name: category
+    price: float32
+    region_cnt: int8
+    city_cnt: int8
+    url_host_cnt: int16
+  target_data_path: ../data/raw/public_train.pqt
+  train_data_path: ../data/processed/train_data.csv
+  model_path: ../models/model_clf.joblib
+  metrics_path: ../report/metrics.json
+
+evaluate:
+  submit_data: ../data/check/submit_data.csv
