@@ -13,6 +13,29 @@ preprocessing:
     part_of_day: category
     request_cnt: int8
     user_id: int32
+  agg_columns_type:
+    user_id: int32
+    part_of_day_day: int16
+    part_of_day_evening: int16
+    part_of_day_morning: int16
+    part_of_day_night: int16
+    sum_visits: int16
+    day_pct: float32
+    evening_pct: float32
+    morning_pct: float32
+    night_pct: float32
+    act_days: int16
+    request_cnt: int32
+    avg_req_per_day: float32
+    period_days: int16
+    act_days_pct: float32
+    cpe_type_cd: category
+    cpe_model_os_type: category
+    cpe_manufacturer_name: category
+    price: float32
+    region_cnt: int8
+    city_cnt: int8
+    url_host_cnt: int16
   columns_fill_na:
     price: -999
   replace_values:
@@ -38,36 +61,22 @@ train:
   train_val_size: 0.16
   random_state: 10
   k_folds: 5
+  n_trials: 3
   columns_to_drop: user_id
   target_type:
     is_male: int8
-  agg_columns_type: 
-    user_id: int32
-    part_of_day_day: int16,
-    part_of_day_evening: int16
-    part_of_day_morning: int16
-    part_of_day_night: int16
-    sum_visits: int16
-    day_pct: float32
-    evening_pct: float32
-    morning_pct: float32
-    night_pct: float32
-    act_days: int16
-    request_cnt: int32
-    avg_req_per_day: float32
-    period_days: int16
-    act_days_pct: float32
-    cpe_type_cd: category
-    cpe_model_os_type: category
-    cpe_manufacturer_name: category
-    price: float32
-    region_cnt: int8
-    city_cnt: int8
-    url_host_cnt: int16
   target_data_path: ../data/raw/public_train.pqt
   train_data_path: ../data/processed/train_data.csv
   model_path: ../models/model_clf.joblib
+  study_path: ../models/study.joblib
   metrics_path: ../report/metrics.json
+  train_split_path: ../data/processed/train.csv
+  test_split_path: ../data/processed/test.csv
 
 evaluate:
   submit_data: ../data/check/submit_data.csv
+
+endpoints:
+  train: 'http://localhost:8001/train'
+  predict_from_file: 'http://localhost:8001/predict'
+  predict_input: 'http://localhost:8001/predict_input'
