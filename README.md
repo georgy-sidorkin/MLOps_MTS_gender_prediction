@@ -6,6 +6,10 @@
 
 https://ods.ai/competitions/mtsmlcup/data
 
+Директория /data с аггрегированными и тестовыми данными:
+
+https://drive.google.com/file/d/1v-fEn691_qRHzzRdJV6PvjsW8nDBklsh/view?usp=sharing
+
 ## UI Demo
 ![alt text](demo/demo.gif?raw=true)
 
@@ -43,7 +47,8 @@ https://ods.ai/competitions/mtsmlcup/data
 - `/backend` - Папка с проектом FastAPI
 - `/frontend` - Папка с проектом Streamlit
 - `/config` - Папка, содержащая конфигурационный файл
-- `/data` - Папка, содержащая исходные данные, обработанные данные, уникальные значения в формате JSON, а также неразмеченный файл для подачи на вход модели
+- `/data` - Папка, содержащая исходные данные, обработанные данные, уникальные значения в формате JSON, 
+а также неразмеченный файл для подачи на вход модели
 - `/demo` - Папка, содержащая демо работы сервиса в Streamlit UI в формате gif
 - `/models` - Папка, содержащая сохраненную модель после тренировки, а также объект optuna.study
 - `/notebooks` - Папка, содержащая jupyter ноутбуки с предварительным анализом данных
