@@ -6,7 +6,8 @@
 
 https://ods.ai/competitions/mtsmlcup/data
 
-Директория /data с аггрегированными и тестовыми данными:
+Для обучения модели и получения предсказаний необходимо добавить директорию /data в корневую папку проекта. 
+Ссылка на данные:
 
 https://drive.google.com/file/d/1v-fEn691_qRHzzRdJV6PvjsW8nDBklsh/view?usp=sharing
 
