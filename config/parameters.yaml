@@ -77,6 +77,9 @@ evaluate:
   submit_data: ../data/check/submit_data.csv
 
 endpoints:
-  train: 'http://localhost:8001/train'
-  predict_from_file: 'http://localhost:8001/predict'
-  predict_input: 'http://localhost:8001/predict_input'
+  train: 'http://fastapi:8000/train'
+  predict_from_file: 'http://fastapi:8000/predict'
+  predict_input: 'http://fastapi:8000/predict_input'
+#  train: 'http://localhost:8001/train'
+#  predict_from_file: 'http://localhost:8001/predict'
+#  predict_input: 'http://localhost:8001/predict_input'
