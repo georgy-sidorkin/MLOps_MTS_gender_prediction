@@ -19,10 +19,10 @@ def get_metrics_dict(y_test: pd.Series, y_pred: np.array, y_score: np.array) -> 
     :return: словарь с метриками
     """
     metrics = {
-        'roc_auc': round(roc_auc_score(y_test, y_score[:, 1]), 4),
-        'precision': round(precision_score(y_test, y_pred), 4),
-        'recall': round(recall_score(y_test, y_pred), 4),
-        'f1': round(f1_score(y_test, y_pred), 4)
+        "roc_auc": round(roc_auc_score(y_test, y_score[:, 1]), 4),
+        "precision": round(precision_score(y_test, y_pred), 4),
+        "recall": round(recall_score(y_test, y_pred), 4),
+        "f1": round(f1_score(y_test, y_pred), 4)
     }
     return metrics
 

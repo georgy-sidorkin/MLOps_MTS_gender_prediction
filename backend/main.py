@@ -7,7 +7,7 @@ import warnings
 import optuna
 import uvicorn
 import pandas as pd
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Response
 from pydantic import BaseModel
 
 from src.preprocessing.preprocessing_input_data import preprocessing_input
@@ -48,7 +48,7 @@ def train():
     """
     pipeline_train(config_path=CONFIG_PATH)
     metrics = load_metrics(config_path=CONFIG_PATH)
-    return {'metrics': metrics}
+    return {"metrics": metrics}
 
 
 @app.post("/predict")
@@ -57,8 +57,7 @@ def predict_from_file(file: UploadFile = File(...)):
     Предсказание модели из файла
     """
     predictions = evaluate_pipeline(config_path=CONFIG_PATH, data_path=file.file)
-    assert isinstance(predictions, list), "Результат не соответсвует типу list"
-    return {"predictions": predictions[:5]}
+    return {"predictions": predictions.to_dict()}
 
 
 @app.post("/predict_input")
@@ -102,11 +101,11 @@ def predict_input(user: UserCookies):
 
     data = pd.DataFrame(features, columns=cols)
     data = preprocessing_input(data)
-    predictions = evaluate_pipeline(config_path=CONFIG_PATH, data=data)[0]
+    predictions = evaluate_pipeline(config_path=CONFIG_PATH, data=data).iloc[0, -1]
     result = (
-        {"The user is male"}
+        {"Пользователь мужчина"}
         if predictions == 1
-        else {"The user is female"}
+        else {"Пользователь женщина"}
         if predictions == 0
         else "Error result"
     )
@@ -114,5 +113,4 @@ def predict_input(user: UserCookies):
 
 
 if __name__ == "__main__":
-    # Запустите сервер, используя заданный хост и порт
     uvicorn.run(app, host="127.0.0.1", port=80)
